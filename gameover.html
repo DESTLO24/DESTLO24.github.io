@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> a DESTLO24 game (fish.io) </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open();
+
+var restartBtn = new sjs.Button("Restart", function(){
+window.location = "fish game.html";
+});
+restartBtn.center();
+restartBtn.setSize(200,200);
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> DEAD </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

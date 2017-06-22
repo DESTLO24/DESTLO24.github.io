@@ -1,0 +1,103 @@
+<html>
+<head>
+	<title> a DESTLO24 game (pong) </title>
+	<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script> 
+<script>
+function start(){ 
+sjs.open("target",750,750);
+
+var score = 0;
+	var score_txt = new sjs.Text("Score: 0", 21, "blue");
+
+var score2 = 0;
+var score2_txt = new sjs.Text("Score: 0", 21, "red");
+score2_txt.bottom(); 
+
+//ball 
+var ball = new sjs.Image("Images/planet.png");
+ball.type = "ball";
+ball.setSize(50,50);
+ball.center();
+ball.friction = 0;
+ball.noBounds = true;;
+ball.pushRight(5);
+ball.pushUp(3);
+
+//Paddle 1
+var paddle1 = new sjs.Image("Images/paddle.png");
+paddle1.type = "paddle1";
+paddle1.centerH();
+paddle1.setSize(187,20);
+
+sjs.keyDown(A_KEY,function(){
+paddle1.pushLeft();
+});
+
+	sjs.keyDown(D_KEY,function(){
+paddle1.pushRight();
+	});
+
+//Paddle 2 
+var paddle2 = new sjs.Image("Images/paddle2.png");
+paddle2.type = "paddle2";
+paddle2.center().bottom();
+paddle2.setSize(187,20);
+
+sjs.keyDown(LEFT_KEY,function(){
+	paddle2.pushLeft();
+});	
+
+sjs.keyDown(RIGHT_KEY,function(){
+	paddle2.pushRight();
+	});
+
+sjs.onHit("ball","paddle1",function(ball,paddle){
+	sjs.bounceOff(ball,paddle);
+	var ball = new sjs.Image("Images/planet.png");
+	ball.type = "ball";
+	ball.setSize(50,50);
+	ball.center();
+	ball.friction = 0;
+	ball.noBounds=true;
+	ball.pushRight(5);
+	ball.pushUp(3);
+	//Score
+
+		score = score + 1;
+		score_txt.setText("score: "+score);
+	
+});
+
+sjs.onHit("ball","paddle2",function(ball,paddle){
+	sjs.bounceOff(ball,paddle);
+	var ball = new sjs.Image("Images/planet.png");
+	ball.type = "ball";
+	ball.setSize(50,50);
+	ball.center();
+	ball.friction = 0;
+	ball.noBounds=true;
+	ball.pushRight(5);
+	ball.pushUp(3);
+	//Score
+
+		score2 = score2 + 1;
+		score2_txt.setText("score: "+score2);
+	
+});
+
+sjs.onHit("ball" ,["top_screen","bottom_screen"], function(){
+	window.location = "gameoverpong.html";
+});
+
+sjs.onHit("ball" ,["left_screen","right_screen"], function(x,y){
+	sjs.bounceOff(x,y);
+});
+
+}//end start 
+</script> 
+</head> 
+<body onload="start()"> 
+<h1> my version of the big bang </h1> 
+<div id="target" style="margin:auto;background:black;"></div> 
+</body> 
+</html> 

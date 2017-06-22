@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> a DESTLO24 game (fish.io) </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",1000,900);
+var background = new sjs.Image("Images/space6.png");
+background.setSize(sjs.getWidth(),sjs.getHeight());
+
+//Player
+var player = new sjs.Image("Images/New Piskel.gif")
+player.type = "player";
+player.setSize(100,90);
+
+sjs.keyDown(RIGHT_KEY, function(){
+	player.setImage("Images/New Piskel.gif");
+	player.pushRight();
+});
+
+sjs.keyDown(LEFT_KEY, function(){
+	player.setImage("Images/New Piskel.gif");
+	player.pushLeft();
+});
+
+sjs.keyDown(DOWN_KEY, function(){
+ player.setImage("Images/New Piskel.gif");
+ player.pushDown();
+});
+
+sjs.keyDown(UP_KEY, function(){
+	player.setImage("Images/New Piskel.gif");
+	player.pushUp();
+});
+
+player.friction = .0; 
+player.accel = 1.;
+
+
+sjs.onHit("player","titan_right",function(x,y) {
+	x.grow(0,0);
+	setTimeout(function(){
+		x.grow(-10,-10);
+	}, 1000);
+	y.destroy();
+});
+
+//Enemies
+setInterval(function(){
+	var speed = Math.floor(1 + Math.random()*100); 
+
+	if(Math.random() > 0.5){	
+		var enemy = new sjs.Image("Images/titan_right.png");
+		enemy.type = "enemy";
+		enemy.setSize(100,90);
+		enemy.noBounds = true;
+		enemy.friction = 0;
+		enemy.pushRight(speed);
+		enemy.scaleSize(.1 + Math.random() * 100);
+		enemy.moveTo(-enemy.getWidth(), Math.random()*
+			(enemy.getClamp().y)); 
+	} else {
+		var enemy = new sjs.Image("Images/titan_right.png");
+		enemy.type = "enemy";
+		enemy.setSize(100,50);
+		enemy.noBounds = true;
+		enemy.friction = 0;
+		enemy.pushLeft(speed);
+		enemy.scaleSize(.1 + Math.random() * .100);
+		enemy.moveTo(sjs.getWidth(), Math.random()*
+			(enemy.getClamp().y));
+	}
+},1000);
+
+sjs.left_screen.offset(-1000);
+sjs.right_screen.offset(1000);
+
+sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){
+	x.destroy();
+});
+
+sjs.onHit("player","enemy", function(x,y){
+	if(x.getWidth() > y.getWidth() && x.getHeight() > y.getHeight()) {
+		x.grow(y.getWidth()/2, y.getHeight()/2);
+	} else {
+		x.destroy();
+	}
+	y.destroy();
+});
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> SPACE FISH WILL SAVE ALL!!! </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
