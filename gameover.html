@@ -6,10 +6,13 @@
 <script>
 function start(){
 sjs.open();
+var score_txt = new sjs.Text("SCORE: 0",100,"yellow");
+score_txt.setText("SCORE: "+localStorage.getItem("score"));
 
 var restartBtn = new sjs.Button("Restart", function(){
-window.location = "fish game.html";
+window.location = "index.html";
 });
+
 restartBtn.center();
 restartBtn.setSize(200,200);
 

@@ -83,8 +83,12 @@ sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){
 sjs.onHit("player","enemy", function(x,y){
 	if(x.getWidth() > y.getWidth() && x.getHeight() > y.getHeight()) {
 		x.grow(y.getWidth()/2, y.getHeight()/2);
+		score = score + 1;
+score_txt.setText("Score: "+score);
+localStorage.setItem("score", score);
 	} else {
 		x.destroy();
+		window.location = "gameover.html"
 	}
 	y.destroy();
 });
